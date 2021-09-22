@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form id="burger-form" method="POST" @submit="createBurger">
+    <form id="burger-form" method="POST" @submit.prevent="createBurger()">
       <div class="input-container">
         <label for="nome">Nome do cliente:</label>
         <input type="text" id="nome" name="nome" v-model="nome" placeholder="Digite o seu nome">
@@ -51,17 +51,42 @@ export default {
         opcionais: [],
         status: "Solicitado",
         msg: null,
+        baseUrl: 'http://localhost:3000/',
       }
     },
     methods: {
       async getIngredientes() {
-        const req = await fetch('http://localhost:3000/ingredientes')
+        const req = await fetch(this.baseUrl + 'ingredientes')
         const data = await req.json()
 
         this.paes = data.paes
         this.carnes = data.carnes
         this.opcionaisdata = data.opcionais
-        console.log(this.paes)
+      },
+      async createBurger() {
+        const data = {
+          nome: this.nome,
+          carne: this.carne,
+          pao: this.pao,
+          opcionais: Array.from(this.opcionais),
+          status: 'Solicitado',
+        }
+        
+        const dataJson = JSON.stringify(data)
+
+        const req = await fetch(this.baseUrl + 'burgers', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: dataJson,
+        })
+
+        const res = await req.json()
+        console.log(res)
+        this.carne = ''
+        this.pao = ''
+        this.opcionais = ''
       },
     },
     mounted() {
