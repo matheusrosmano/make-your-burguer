@@ -58,10 +58,11 @@ export default {
         this.paes = data.paes
         this.carnes = data.carnes
         this.opcionaisdata = data.opcionais
+        console.log(this.paes)
       },
     },
     mounted() {
-      this.getIgredientes();
+      this.getIngredientes()
     },
 }
 </script>
