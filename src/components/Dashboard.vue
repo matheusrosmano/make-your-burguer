@@ -13,9 +13,9 @@
             </div>
         </div>
         <div id="burguer-table-rows">
-            <div class="burguer-table-row">
+            <div class="burguer-table-row" v-for="burguer in this.burguers" :key="burguer.id">
                 <div class="order-number">
-                    1
+                    {{ burguer.id}}
                 </div>
                 <div>João</div>
                 <div>Integral</div>
@@ -39,6 +39,30 @@
 <script>
 export default {
     name: 'Dashboard',
+    data() {
+        return {
+            burguers: null,
+            burguer_id: null,
+            status: [],
+            baseUrl: 'http://localhost:3000/',
+        }
+    },
+  methods: {
+     async getPedidos() {
+      const req = await fetch(this.baseUrl + 'burgers', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      }).then(response => response.text()).then(json => {
+        this.burguers = json
+      })
+    },
+  },
+  mounted() {
+      this.burguers = this.getPedidos()
+    console.log(this.burguers)
+  },
 }
 </script>
 
