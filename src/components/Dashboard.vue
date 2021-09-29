@@ -54,9 +54,9 @@ export default {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-      }).then(response => response.text()).then(json => {
-        this.burguers = json
       })
+
+      this.burguers = await req.json()
     },
   },
   mounted() {
@@ -71,7 +71,7 @@ export default {
         max-width: 1200px;
         margin: 0 auto;
     }
-    #burguer-table-heading, 
+    #burguer-table-heading,
     #burguer-table-rows,
     .burguer-table-row {
         display: flex;
