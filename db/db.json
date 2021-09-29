@@ -83,7 +83,7 @@
   ],
   "burgers": [
     {
-      "nome": "ii",
+      "nome": "Alberto da costa",
       "carne": "Alcatra",
       "pao": "Italiano Branco",
       "opcionais": [
@@ -91,7 +91,7 @@
         "Cheddar",
         "Tomate"
       ],
-      "status": "Solicitado",
+      "status": "Finalizado",
       "id": 1
     },
     {
@@ -121,7 +121,7 @@
     },
     {
       "nome": "Maria",
-      "carne": null,
+      "carne": "Contra file",
       "pao": "Italiano Branco",
       "opcionais": [
         "Cebola roxa",

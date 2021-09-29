@@ -17,17 +17,24 @@
                 <div class="order-number">
                     {{ burguer.id}}
                 </div>
-                <div>João</div>
-                <div>Integral</div>
-                <div>Maminha</div>
+                <div>{{burguer.nome}}</div>
+                <div>{{burguer.pao}}</div>
+                <div>{{burguer.carne}}</div>
                 <div>
                     <ul>
-                        <li>Cebola</li>
+                        <li v-for="(opcional, index) in burguer.opcionais" :key="index">
+                            {{opcional}}
+                        </li>
                     </ul>
                 </div>
                 <div>
                     <select name="status" class="status">
                         <option value="">Selecione...</option>
+                        <option v-for="s in this.status" :key="s.id" :value="s.id"
+                            :selected="s.tipo == burguer.status"
+                        >
+                            {{s.tipo}}
+                        </option>
                     </select>
                     <button class="delete-btn">Cancelar</button>
                 </div>
@@ -58,10 +65,22 @@ export default {
 
       this.burguers = await req.json()
     },
+    async getStatus() {
+      const req = await fetch(`${this.baseUrl}status`, {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      })
+
+      this.status = await req.json()
+      console.log(this.status)
+    }
   },
   mounted() {
-      this.burguers = this.getPedidos()
-    console.log(this.burguers)
+      this.getPedidos()
+      this.getStatus()
   },
 }
 </script>
